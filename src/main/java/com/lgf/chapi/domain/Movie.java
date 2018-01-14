@@ -25,6 +25,7 @@ public class Movie {
     String small_cover_image;
     String medium_cover_image;
     String large_cover_image;
+    Boolean selected;
 
     public String getBackground_image() {
         return background_image;
@@ -160,6 +161,14 @@ public class Movie {
 
     public void setYear(Integer year) {
         this.year = year;
+    }
+
+    public Boolean getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Boolean selected) {
+        this.selected = selected;
     }
 
     @Override

@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane prefHeight="717.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lgf.chapi.controllers.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="1358.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lgf.chapi.controllers.MainController">
     <children>
 
-        <TabPane layoutY="9.0" prefHeight="696.0" prefWidth="847.0">
+        <TabPane layoutY="9.0" prefHeight="696.0" prefWidth="1297.0">
             <tabs>
                 <Tab text="Movies">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0" prefWidth="0">
                             <children>
-                                <SplitPane dividerPositions="0.5992970123022847" layoutX="2.0" layoutY="3.0" prefHeight="312.0" prefWidth="571.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <SplitPane dividerPositions="0.3190436933223413" layoutX="2.0" layoutY="3.0" prefHeight="312.0" prefWidth="571.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <items>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="661.0" prefWidth="435.0">
                                             <children>
-                                                <SplitPane dividerPositions="0.11496746203904555" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <SplitPane dividerPositions="0.1244309559939302" orientation="VERTICAL" prefHeight="661.0" prefWidth="425.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <items>
-                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="233.0" prefWidth="377.0">
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="54.0" prefWidth="404.0">
                                                             <children>
-                                                                <Button fx:id="loadMovie" layoutX="17.0" layoutY="12.0" mnemonicParsing="false" text="Load Movie" />
-                                                                <Button fx:id="loadMoviesData" layoutX="238.0" layoutY="12.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="78.0" text="Rename" />
-                                                                <Button fx:id="renameMovies" layoutX="125.0" layoutY="12.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="91.0" text="Load Data" />
+                                                                <Button fx:id="getDownloadedMoviesButton" layoutX="6.0" layoutY="14.0" mnemonicParsing="false" onAction="#getDownloadedMovies" text="Show Downloaded Movies" />
+                                                                <Button fx:id="getMoviesMetadataButton" layoutX="193.0" layoutY="14.0" mnemonicParsing="false" onAction="#getMoviesMetadata" prefHeight="27.0" prefWidth="177.0" text="Load Movies Metadata" />
                                                             </children>
                                                         </AnchorPane>
-                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="579.0" prefWidth="407.0">
                                                             <children>
-                                                                <ListView fx:id="directoryList" layoutX="33.0" layoutY="50.0" prefHeight="323.0" prefWidth="306.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                <ListView fx:id="directoryList" layoutX="33.0" prefHeight="570.0" prefWidth="408.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0" />
                                                             </children>
                                                         </AnchorPane>
                                                     </items>
                                                 </SplitPane>
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="219.0" />
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="661.0" prefWidth="842.0">
+                                            <children>
+                                                <TableView fx:id="moviesTable" prefHeight="660.0" prefWidth="876.0" />
+                                            </children>
+                                        </AnchorPane>
                                     </items>
                                 </SplitPane>
                             </children>
@@ -43,10 +49,29 @@
                 </Tab>
                 <Tab text="Configuration">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TextField fx:id="fsMovieHomeDirectory" layoutX="167.0" layoutY="125.0" prefHeight="27.0" prefWidth="331.0" promptText="Movies Home Directory" text="Movies Home Directory">
+                                    <effect>
+                                        <InnerShadow />
+                                    </effect>
+                                    <cursor>
+                                        <Cursor fx:constant="TEXT" />
+                                    </cursor>
+                                </TextField>
+                                <Button fx:id="changeFsMovieHomeDirectoryButton" layoutX="531.0" layoutY="125.0" mnemonicParsing="false" text="Change" textAlignment="CENTER" />
+                            </children>
+                        </AnchorPane>
                     </content>
                 </Tab>
             </tabs>
         </TabPane>
+        <Pane layoutY="707.0" prefHeight="134.0" prefWidth="1297.0">
+            <children>
+                <Button fx:id="renameMoviesButton" layoutX="551.0" layoutY="41.0" onAction="#renameMovies"  mnemonicParsing="false" prefHeight="39.0" prefWidth="322.0" text="Rename Movies" />
+                <ProgressBar layoutX="551.0" layoutY="87.0" prefHeight="20.0" prefWidth="322.0" progress="0.0" />
+                            <ProgressBar fx:id="loadMoviesMetadataProgressBar" layoutX="178.0" layoutY="26.0" prefHeight="20.0" prefWidth="177.0" progress="0.37" />
+            </children>
+        </Pane>
     </children>
 </Pane>

@@ -5,6 +5,8 @@ import com.lgf.chapi.domain.ResponsePage;
 import com.lgf.chapi.respositories.MovieRepositoryImplFeign;
 import com.sun.org.apache.regexp.internal.RE;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -18,15 +20,9 @@ public class RemoteMovieService {
         this.movieRepositoryImplFeign = movieRepositoryImplFeign;
     }
 
-    public Optional<Movie> getMovie(String name) {
+    public List<Movie> getMovie(String name) {
 
-        Optional<Movie> movie = Optional.empty();
-
-        ResponsePage responsePage = movieRepositoryImplFeign.getMovie(name);
-        if (responsePage.getData().getMovie_count() == 1){
-            movie = Optional.of(responsePage.getData().getMovies().get(0));
-        }
-
-        return movie;
+        List<Movie> movies = movieRepositoryImplFeign.getMovie(name).getData().getMovies();
+        return movies;
     }
 }
