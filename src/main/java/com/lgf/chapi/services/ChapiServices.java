@@ -30,22 +30,24 @@ public class ChapiServices {
         for (FileSystemMovie fileSystemMovie : fileSystemMovies) {
             //progressBar.setProgress(0.25F);
             List<Movie> movies = remoteMovieService.getMovie(fileSystemMovie.getMovieName());
+
             if (movies != null && !movies.isEmpty()) {
                 if (movies.size() == 1) {
                     fileSystemMovie.setMovie(movies.get(0));
                 } else {
                     List<Movie> filteredMovies = movies.stream().filter(movie -> movie.getTitle().equals(fileSystemMovie.getMovieName())
                     ).collect(Collectors.toList());
-                    if (filteredMovies != null) {
+                    if (filteredMovies != null && filteredMovies.size()>0) {
                         fileSystemMovie.setMovie(filteredMovies.get(0));
                     }
                 }
             }
+            System.out.println("FS Movie: " + fileSystemMovie.getMovieName() + " <--------- Remote: "+fileSystemMovie.getMovie().getTitle());
         }
     }
 
     public String buildDirectoryName(Movie movie) {
-        return (movie.getTitle() + " (" + movie.getRating() + ") "
+        return (movie.getTitle().replace(":","") + " (" + movie.getRating() + ") "
                 + movie.getGenres().toString() +
                 " (" + movie.getYear() + ")" +
                 " (" + movie.getMpa_rating() + ")" +

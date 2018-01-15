@@ -10,7 +10,7 @@ import feign.RequestLine;
 @Headers("Accept: application/json")
 public interface MovieResourceFeign {
 
-    @RequestLine("GET /v2/list_movies.json?query_term={movieName}")
+    @RequestLine("GET /v2/list_movies.json?query_term={movieName}&sort_by=year&limit=50")
     @Headers("user-agent: bla")
     ResponsePage getMovie(@Param("movieName") String movieName);
 }
