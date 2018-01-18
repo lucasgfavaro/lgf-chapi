@@ -47,7 +47,7 @@ public class ChapiServices {
     }
 
     public String buildDirectoryName(Movie movie) {
-        return (movie.getTitle().replace(":","") + " (" + movie.getRating() + ") "
+        return (movie.getTitle().replace(":","").replace("/","-") + " (" + movie.getRating() + ") "
                 + movie.getGenres().toString() +
                 " (" + movie.getYear() + ")" +
                 " (" + movie.getMpa_rating() + ")" +
